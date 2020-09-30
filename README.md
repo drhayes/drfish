@@ -7,5 +7,14 @@ My fish functions and junk.
 With `fisher` it's a breeze:
 
 ```fish
-fish install drhayes/drfish
+fisher install drhayes/drfish
 ```
+
+### `fisher`?
+
+[This is fisher][fisher]. It can be installed thusly:
+
+```fish
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+```
+[fisher]: https://github.com/jorgebucaran/fisher
