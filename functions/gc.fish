@@ -1,3 +1,3 @@
 function gc --description "git commit"
-  git commit -x $argv
+  git commit -v $argv
 end
