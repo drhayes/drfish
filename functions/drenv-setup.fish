@@ -27,6 +27,10 @@ function _apt_get_install -a to_install check --description "If we don't already
   end
 end
 
+function _download
+  curl -sLO $argv
+end
+
 function drenv-setup --description "Do all the first time setup stuff to make a computer I want to use."
   sudo apt-get update
   _apt_get_install "apt-utils apt-extracttemplates"
@@ -50,7 +54,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   # exa.
   if not type --quiet exa
     pushd /tmp > /dev/null
-    curl -LO https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
+    _download https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
     unzip exa-linux-x86_64-0.9.0.zip
     mv exa-linux-x86_64 ~/bin
     popd > /dev/null
@@ -59,7 +63,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   # nvim.
   if not type --quiet nvim
     _drenv_progress nvim
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    _download https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
     chmod u+x nvim.appimage
     mv nvim.appimage ~/bin/nvim
   end
@@ -88,7 +92,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     pushd /tmp > /dev/null
     _apt_get_install libjs-underscore
     _apt_get_install libjs-sphinxdoc
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    _download https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
     popd > /dev/null
   end
 
@@ -96,7 +100,8 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   if not type --quiet docker
     _drenv_progress docker
     pushd /tmp > /dev/null
-    set -l docker_install (curl -sLo- 'https://get.docker.com')
+    # Not sure this works, multilines are... enh.
+    set -l docker_install (_download 'https://get.docker.com')
     bash -c $docker_install
     eval sudo usermod -aG docker $USER
   end
@@ -104,7 +109,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   # docker-compose.
   if not type --quiet docker-compose
     _drenv_progress docker-compose
-    sudo curl -L 'https://github.com/docker/compose/releases/download/1.27.4/docker-compose-(uname -s)-(uname -m)' -o '/usr/local/bin/docker-compose'
+    sudo _download 'https://github.com/docker/compose/releases/download/1.27.4/docker-compose-(uname -s)-(uname -m)' -o '/usr/local/bin/docker-compose'
     sudo chmod +x /usr/local/bin/docker-compose
   end
 
@@ -112,7 +117,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   if not type --quiet prettyping
     _drenv_progress prettyping
     pushd /tmp > /dev/null
-    curl -sO https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+    _download https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
     sudo cp prettyping /usr/local/bin
     sudo chmod +x /usr/local/bin/prettyping
     popd > /dev/null
@@ -124,7 +129,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     _drenv_progress bat
     pushd /tmp > /dev/null
     # Hope I'm always running this on amd64, nyuk nyuk nyuk.
-    curl -sO https://github.com/sharkdp/bat/releases/download/v0.15.4/bat_0.15.4_amd64.deb
+    _download https://github.com/sharkdp/bat/releases/download/v0.15.4/bat_0.15.4_amd64.deb
     sudo dpkg -i bat_0.15.4_amd64.deb
     popd > /dev/null
   end
@@ -134,7 +139,10 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   # Grab the config.
   _drenv_progress Checking config...
   if not test -f ~/.config/fish/config.fish
-    curl https://raw.githubusercontent.com/drhayes/drfish/main/config.fish -o ~/.config/fish/config.fish
+    pushd /tmp > /dev/null
+    _download https://raw.githubusercontent.com/drhayes/drfish/main/config.fish
+    cp config.fish ~/.config/fish/config.fish
+    popd > /dev/null
   else
     _drenv_present config.fish
   end
@@ -159,7 +167,10 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   # Grab the fishfile.
   _drenv_progress Checking fishfile...
   if not test -f ~/.config/fish/fishfile
-    curl https://raw.githubusercontent.com/drhayes/drenv/main/fishfile -o ~/.config/fish/fishfile
+    pushd /tmp > /dev/null
+    _download https://raw.githubusercontent.com/drhayes/drenv/main/fishfile
+    cp fishfile ~/.config/fish/fishfile
+    popd > /dev/null
   else
     _drenv_present fishfile
   end
