@@ -27,12 +27,16 @@ end
 
 function drenv-setup --description "Do all the first time setup stuff to make a computer I want to use."
   sudo apt-get update
+  _apt_get_install "apt-utils apt-extracttemplates"
+  _apt_get_install "locales update-locale"
+  sudo locale-gen
+  sudo dpkg-reconfigure locales
 
   # I want a local bin dir.
   mkdir -p ~/bin
 
   # Stable packages.
-  set apps_to_install "apt-utils apt-extracttemplates" "locales update-locale" git curl wget "nodejs node" npm bat jq "silversearcher-ag ag" fd-find
+  set apps_to_install git curl wget "nodejs node" npm bat jq "silversearcher-ag ag" fd-find
   for app in $apps_to_install
     _apt_get_install $app
   end
@@ -69,8 +73,8 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   if not type --quiet kitty
     _drenv_progress kitty
     pushd /tmp > /dev/null
-    apt_get_install libjs-underscore
-    apt_get_install libjs-sphinxdoc
+    _apt_get_install libjs-underscore
+    _apt_get_install libjs-sphinxdoc
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
     popd > /dev/null
   end
