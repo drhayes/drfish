@@ -1,3 +1,3 @@
 function ll --description "List a lot of files with exa."
-    exa -lah $argv
+    exa --long --all --header --git $argv
 end
