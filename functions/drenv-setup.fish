@@ -32,7 +32,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   mkdir -p ~/bin
 
   # Stable packages.
-  set apps_to_install git curl wget "nodejs node" npm bat jq "silversearcher-ag ag" fd-find
+  set apps_to_install "apt-utils apt-extracttemplates" "locales update-locale" git curl wget "nodejs node" npm bat jq "silversearcher-ag ag" fd-find
   for app in $apps_to_install
     _apt_get_install $app
   end
@@ -79,7 +79,8 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   if not type --quiet docker
     _drenv_progress docker
     pushd /tmp > /dev/null
-    bash -c "(curl -sLo- 'https://get.docker.com')"
+    set -l docker_install (curl -sLo- 'https://get.docker.com')
+    bash -c $docker_install
     eval sudo usermod -aG docker $USER
   end
 
