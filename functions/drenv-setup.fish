@@ -23,7 +23,7 @@ function _apt_get_install -a to_install check --description "If we don't already
     _drenv_progress $to_install
     DEBIAN_FRONTEND=noninteractive sudo apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install -y $to_install
   else
-    _drenv_present ag
+    _drenv_present $to_install
   end
 end
 
