@@ -19,9 +19,11 @@ function _apt_get_install -a to_install check --description "If we don't already
     set check $to_install
   end
   # If we already have it, do nothing.
-  if not which $check
+  if not type --quiet $check
     _drenv_progress $to_install
     DEBIAN_FRONTEND=noninteractive sudo apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install -y $to_install
+  else
+    _drenv_present ag
   end
 end
 
