@@ -47,6 +47,15 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
 
   # The corner cases.
 
+  # exa.
+  if not type --quiet exa
+    pushd /tmp > /dev/null
+    curl https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
+    unzip exa-linux-x86_64-0.9.0.zip
+    mv exa-linux-x86_64 ~/bin
+    popd > /dev/null
+  end
+
   # nvim.
   if not type --quiet nvim
     _drenv_progress nvim
