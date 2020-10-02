@@ -70,6 +70,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   # docker.
   if not type --quiet docker
     _drenv_progress docker
+    pushd /tmp > /dev/null
     bash -c "$(curl -sLo- 'https://get.docker.com')"
     eval sudo usermod -aG docker $USER
   end
