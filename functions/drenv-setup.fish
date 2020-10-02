@@ -44,7 +44,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   mkdir -p ~/bin
 
   # Stable packages.
-  set apps_to_install git curl wget "nodejs node" npm bat jq silversearcher-ag fd-find
+  set apps_to_install git curl wget unzip "nodejs node" npm bat jq silversearcher-ag fd-find fortune
   for app in $apps_to_install
     _apt_get_install $app
   end
