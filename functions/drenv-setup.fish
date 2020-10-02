@@ -32,6 +32,8 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   sudo locale-gen
   sudo dpkg-reconfigure locales
 
+  set -x LC_ALL en_US.UTF-8
+
   # I want a local bin dir.
   mkdir -p ~/bin
 
