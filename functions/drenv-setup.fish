@@ -40,7 +40,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   mkdir -p ~/bin
 
   # Stable packages.
-  set apps_to_install git curl wget "nodejs node" npm bat jq "silversearcher-ag ag" fd-find
+  set apps_to_install git curl wget "nodejs node" npm bat jq silversearcher-ag fd-find
   for app in $apps_to_install
     _apt_get_install $app
   end
@@ -50,7 +50,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   # exa.
   if not type --quiet exa
     pushd /tmp > /dev/null
-    curl https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
+    curl -LO https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip
     unzip exa-linux-x86_64-0.9.0.zip
     mv exa-linux-x86_64 ~/bin
     popd > /dev/null
