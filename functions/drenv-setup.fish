@@ -6,6 +6,14 @@ function _drenv_present -a name --description "Show a message that things are pr
   echo (set_color green)$name(set_color normal) is present.
 end
 
+function sudo
+  if test (id -u) -eq 0
+      eval $argv
+  else
+      sudo $argv
+  end
+end
+
 function _apt_get_install -a to_install check --description "If we don't already have it, install it."
   if test -z $check
     set check $to_install
