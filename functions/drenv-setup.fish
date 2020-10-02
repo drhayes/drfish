@@ -108,14 +108,28 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     sudo chmod +x /usr/local/bin/docker-compose
   end
 
+  # prettyping.
   if not type --quiet prettyping
     _drenv_progress prettyping
     pushd /tmp > /dev/null
-    curl -s -O https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+    curl -sO https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
     sudo cp prettyping /usr/local/bin
     sudo chmod +x /usr/local/bin/prettyping
     popd > /dev/null
   end
+
+  # bat.
+  # There's a chance bat isn't in the repos yet, so do it manually if necessary.
+  if not type bat --quiet
+    _drenv_progress bat
+    pushd /tmp > /dev/null
+    # Hope I'm always running this on amd64, nyuk nyuk nyuk.
+    curl -sO https://github.com/sharkdp/bat/releases/download/v0.15.4/bat_0.15.4_amd64.deb
+    sudo dpkg -i bat_0.15.4_amd64.deb
+    popd > /dev/null
+  end
+
+  # Fish-specific stuff goes down here.
 
   # Grab the config.
   _drenv_progress Checking config...
@@ -131,12 +145,6 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     curl --silent --location git.io/tide | source && tide_install --unattended
   else
     _drenv_present tide
-  end
-
-  _drenv_progress Checking bat...
-  if not type bat --quiet
-  else
-    _drenv_present bat
   end
 
   # Install fisher.
