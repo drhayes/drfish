@@ -125,13 +125,18 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
 
   # bat.
   # There's a chance bat isn't in the repos yet, so do it manually if necessary.
-  if not type bat --quiet
+  if not type --quiet bat
     _drenv_progress bat
     pushd /tmp > /dev/null
     # Hope I'm always running this on amd64, nyuk nyuk nyuk.
     _download https://github.com/sharkdp/bat/releases/download/v0.15.4/bat_0.15.4_amd64.deb
     sudo dpkg -i bat_0.15.4_amd64.deb
     popd > /dev/null
+  end
+
+  if not type --quiet rustc
+    _drenv_progress rustup
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   end
 
   # Fish-specific stuff goes down here.
