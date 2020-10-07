@@ -123,6 +123,11 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     popd > /dev/null
   end
 
+  # fzf.
+  if not type --quiet fzf
+    _sudo apt-get install fzf
+  end
+
   # bat.
   # There's a chance bat isn't in the repos yet, so do it manually if necessary.
   if not type --quiet bat
