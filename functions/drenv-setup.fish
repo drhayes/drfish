@@ -6,7 +6,7 @@ function _drenv_present -a name --description "Show a message that things are pr
   echo (set_color green)$name(set_color normal) is present.
 end
 
-function sudo
+function _sudo
   if test (id -u) -eq 0
       eval $argv
   else
@@ -32,11 +32,11 @@ function _download
 end
 
 function drenv-setup --description "Do all the first time setup stuff to make a computer I want to use."
-  sudo apt-get update
+  _sudo apt-get update
   _apt_get_install "apt-utils apt-extracttemplates"
   _apt_get_install "locales update-locale"
-  sudo locale-gen
-  sudo dpkg-reconfigure locales
+  _sudo locale-gen
+  _sudo dpkg-reconfigure locales
 
   set -x LC_ALL en_US.UTF-8
 
@@ -71,9 +71,9 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
   # ponysay.
   if not type --quiet ponysay
     _drenv_progress ponysay
-    sudo add-apt-repository ppa:vincent-c/ponysay
-    sudo apt-get update
-    sudo apt-get install ponysay
+    _sudo add-apt-repository ppa:vincent-c/ponysay
+    _sudo apt-get update
+    _sudo apt-get install ponysay
   end
 
   # fzf.
@@ -103,14 +103,14 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     # Not sure this works, multilines are... enh.
     set -l docker_install (_download 'https://get.docker.com')
     bash -c $docker_install
-    eval sudo usermod -aG docker $USER
+    eval _sudo usermod -aG docker $USER
   end
 
   # docker-compose.
   if not type --quiet docker-compose
     _drenv_progress docker-compose
-    sudo _download 'https://github.com/docker/compose/releases/download/1.27.4/docker-compose-(uname -s)-(uname -m)' -o '/usr/local/bin/docker-compose'
-    sudo chmod +x /usr/local/bin/docker-compose
+    _sudo _download 'https://github.com/docker/compose/releases/download/1.27.4/docker-compose-(uname -s)-(uname -m)' -o '/usr/local/bin/docker-compose'
+    _sudo chmod +x /usr/local/bin/docker-compose
   end
 
   # prettyping.
@@ -118,8 +118,8 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     _drenv_progress prettyping
     pushd /tmp > /dev/null
     _download https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
-    sudo cp prettyping /usr/local/bin
-    sudo chmod +x /usr/local/bin/prettyping
+    _sudo cp prettyping /usr/local/bin
+    _sudo chmod +x /usr/local/bin/prettyping
     popd > /dev/null
   end
 
@@ -130,7 +130,7 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     pushd /tmp > /dev/null
     # Hope I'm always running this on amd64, nyuk nyuk nyuk.
     _download https://github.com/sharkdp/bat/releases/download/v0.15.4/bat_0.15.4_amd64.deb
-    sudo dpkg -i bat_0.15.4_amd64.deb
+    _sudo dpkg -i bat_0.15.4_amd64.deb
     popd > /dev/null
   end
 
