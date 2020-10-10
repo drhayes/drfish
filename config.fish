@@ -5,6 +5,9 @@ set -x EDITOR nvim
 set -x BROWSER firefox
 set -x GPG_TTY (tty)
 
+# I don't install npm things globally, get'em out of here.
+set PATH $PATH /home/drhayes/.npm/
+
 set fish_greeting
 
 # Override some tide colors.
