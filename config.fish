@@ -6,9 +6,16 @@ set -x BROWSER firefox
 set -x GPG_TTY (tty)
 
 # I don't install npm things globally, get'em out of here.
-set PATH $PATH /home/drhayes/.npm/
+set PATH $PATH /home/drhayes/.npm/bin
 
+# By default, I do AWS things for work.
+set -x AWS_PROFILE drhayes-dev
+
+# Clear this so my custom function can do its thing.
 set fish_greeting
+
+# I use this dir for random things, so just make it here.
+mkdir -p ~/run
 
 # Override some tide colors.
 # Don't run these all the time, just once on initial setup to override color.
