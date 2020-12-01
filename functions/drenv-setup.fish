@@ -144,6 +144,9 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   end
 
+  # Install mssql stuff.
+  _sudo apt-get install mssql-tools msodbcsql17 unixodbc libodbc1
+
   # Fish-specific stuff goes down here.
 
   # Grab the config.
