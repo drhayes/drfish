@@ -1,4 +1,4 @@
-function .bw_get_session --description "Get the Bitwarden session, logging in and unlocking the vault if needed."
+function _bw_get_session --description "Get the Bitwarden session, logging in and unlocking the vault if needed."
   # Is our Bitwarden session key still in keyctl?
   set KEY_ID (keyctl request user bw_session 2>/dev/null)
   if test -z "$KEY_ID"

@@ -25,10 +25,10 @@ function keyme --description "Pull my SSH config from secure storage and put it 
   end
 
   # Log into Bitwarden for secure storage. This sets BW_SESSION for later use.
-  .bw_get_session > /dev/null
+  _bw_get_session > /dev/null
   # Save the session off. Weird bug here: the echo when logging in doesn't work unless I do it
   # outside of the subshell. I'm sure it's something I'm not understanding about fish variables.
-  set -x BW_SESSION (.bw_get_session)
+  set -x BW_SESSION (_bw_get_session)
   # Ensure an empty directory to place ssh config.
   set SSH_CONFIG_PATH "$TMP_SSH_KEY_DIR"/config
   if test -d $TMP_SSH_KEY_DIR
