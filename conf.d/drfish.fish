@@ -11,9 +11,6 @@ set PATH $PATH /home/drhayes/.npm/bin
 set PATH $PATH /usr/local/go/bin
 set PATH $PATH /home/drhayes/go/bin
 
-# By default, I do AWS things for work.
-set -x AWS_PROFILE drhayes-dev
-
 # Clear this so my custom function can do its thing.
 set fish_greeting
 
