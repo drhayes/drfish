@@ -1,3 +1,4 @@
+# Lifted and translated from: https://github.com/dmi3/bin/blob/master/wa
 function wa --description "Ask Wolfram Alpha for answers to stuff."
   # Do we have the Wolfram Alpha AppID from?
   if test -z "$WOLFRAM_ALPHA_APPID"
