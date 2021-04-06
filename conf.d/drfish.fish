@@ -5,12 +5,6 @@ set -x EDITOR nvim
 set -x BROWSER firefox
 set -x GPG_TTY (tty)
 
-# I don't install npm things globally, get'em out of here.
-set PATH $PATH /home/drhayes/.npm/bin
-# I do go stuff occasionally.
-set PATH $PATH /usr/local/go/bin
-set PATH $PATH /home/drhayes/go/bin
-
 # Clear this so my custom function can do its thing.
 set fish_greeting
 
