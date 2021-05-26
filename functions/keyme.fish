@@ -25,10 +25,12 @@ function keyme --description "Pull my SSH config from secure storage and put it 
   end
 
   # Log into Bitwarden for secure storage. This sets BW_SESSION for later use.
-  _bw_get_session > /dev/null
-  # Save the session off. Weird bug here: the echo when logging in doesn't work unless I do it
-  # outside of the subshell. I'm sure it's something I'm not understanding about fish variables.
-  set -x BW_SESSION (_bw_get_session)
+  set -gx BW_SESSION (_bw_get_session)
+  if test $status -ne 0
+    _keyme_error "There was a problem getting the bitwarden session."
+    return 1
+  end
+
   # Ensure an empty directory to place ssh config.
   set SSH_CONFIG_PATH "$TMP_SSH_KEY_DIR"/config
   if test -d $TMP_SSH_KEY_DIR
@@ -50,8 +52,10 @@ function keyme --description "Pull my SSH config from secure storage and put it 
       set ATTACHMENT_ID (echo $attachment | jq --raw-output '.id')
       set ATTACHMENT_FILE_NAME (echo $attachment | jq --raw-output '.fileName')
       set ATTACHMENT_PATH "$TMP_SSH_KEY_DIR"/"$ATTACHMENT_FILE_NAME"
-      _keyme_info "Writing $ATTACHMENT_PATH..."
-      bw get attachment $ATTACHMENT_ID --itemid $item_id --output $ATTACHMENT_PATH
+      # Looks like bw doesn't want to write to /run/user/1000 or whatever...
+      bw get attachment $ATTACHMENT_ID --itemid $item_id --output $HOME/run/
+      _keyme_info "Moving to $ATTACHMENT_PATH..."
+      mv $HOME/run/$ATTACHMENT_FILE_NAME $ATTACHMENT_PATH
       chmod 400 $ATTACHMENT_PATH
     end
   end
