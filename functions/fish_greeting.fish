@@ -1,3 +1,3 @@
 function fish_greeting
-  fortune | lolcat
+  fortune | lolcat -f eyes
 end
