@@ -1,3 +1,3 @@
 function fish_greeting
-  fortune | cowsay | lolcat
+  pokemon-colorscripts -r
 end
