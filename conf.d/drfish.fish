@@ -1,9 +1,9 @@
 # set -x theme_newline_cursor yes
-set -x SHELL fish
-set -x TERM xterm-256color
-set -x EDITOR nvim
-set -x BROWSER firefox
-set -x GPG_TTY (tty)
+# set -x SHELL fish
+# set -x TERM xterm-256color
+# set -x EDITOR nvim
+# set -x BROWSER vivaldi-stable
+# set -x GPG_TTY (tty)
 
 # Clear this so my custom function can do its thing.
 set fish_greeting
