@@ -1,3 +1,5 @@
 function fish_greeting
-  fortune | cowsay | lolcat
+  if (which cowsay)
+    fortune | cowsay | lolcat
+  end
 end
