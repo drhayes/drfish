@@ -1,5 +1,5 @@
 function ghclone -a repo thingy --description "Clone a repo from GitHub to ~/src."
-  set -l default_path (string split --max 1 --right / $repo)
+  set -l default_path $repo
   if test -z "$thingy"
     set thingy $default_path
   end
