@@ -1,4 +1,4 @@
-function cdcc --description "cd into the ~/src/gdscc directory."
-  cd ~/src/gdscc/"$argv"
+function cdcc --description "cd into the ~/src/glg/gdscc directory."
+  cd ~/src/glg/gdscc/"$argv"
 end
 
