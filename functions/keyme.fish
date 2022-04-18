@@ -57,6 +57,8 @@ function keyme --description "Pull my SSH config from secure storage and put it 
     _keyme_info "Matching key found, setting as default..."
     cp $TMP_SSH_KEY_DIR/$DEFAULT_KEY $TMP_SSH_KEY_DIR/id_rsa
     cp $TMP_SSH_KEY_DIR/$DEFAULT_KEY.pub $TMP_SSH_KEY_DIR/id_rsa.pub
+    _keyme_info "Running ssh-add on the default identities..."
+    ssh-add
   end
 
   _keyme_info "Setting permissions on config..."
