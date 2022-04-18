@@ -50,6 +50,15 @@ function keyme --description "Pull my SSH config from secure storage and put it 
     chmod 400 $SSH_DIR_FILE
   end
 
+  # If there is a key matching the username.hostname pattern for this
+  # username and hostname, set that key as id_rsa{,.pub}.
+  set DEFAULT_KEY (whoami).(hostname)
+  if test -f $TMP_SSH_KEY_DIR/$DEFAULT_KEY
+    _keyme_info "Matching key found, setting as default..."
+    cp $TMP_SSH_KEY_DIR/$DEFAULT_KEY $TMP_SSH_KEY_DIR/id_rsa
+    cp $TMP_SSH_KEY_DIR/$DEFAULT_KEY.pub $TMP_SSH_KEY_DIR/id_rsa.pub
+  end
+
   _keyme_info "Setting permissions on config..."
   chmod 600 "$TMP_SSH_KEY_DIR/config"
 
