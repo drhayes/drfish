@@ -1,3 +1,3 @@
-function cdg --description "cd into the games directory"
-    cd ~/games/"$argv"
+function cdg --description "cd into the go directory"
+    cd (go env GOPATH)/"$argv"
 end
