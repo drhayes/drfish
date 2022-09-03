@@ -54,11 +54,16 @@ function keyme --description "Pull my SSH config from secure storage and put it 
   # username and hostname, set that key as id_rsa{,.pub}.
   set DEFAULT_KEY (whoami).(hostname)
   if test -f $TMP_SSH_KEY_DIR/$DEFAULT_KEY
-    _keyme_info "Matching key found, setting as default..."
+    _keyme_info "Matching host key $DEFAULT_KEY found, setting as id_rsa..."
     cp $TMP_SSH_KEY_DIR/$DEFAULT_KEY $TMP_SSH_KEY_DIR/id_rsa
     cp $TMP_SSH_KEY_DIR/$DEFAULT_KEY.pub $TMP_SSH_KEY_DIR/id_rsa.pub
-    _keyme_info "Running ssh-add on the default identities..."
-    ssh-add
+  end
+
+  set DEFAULT_KEY_ED25519 (whoami).(hostname).ed25519
+  if test -f $TMP_SSH_KEY_DIR/$DEFAULT_KEY_ED25519
+    _keyme_info "Matching key $DEFAULT_KEY_ED25519 found, setting as id_ed25519..."
+    cp $TMP_SSH_KEY_DIR/$DEFAULT_KEY_ED25519 $TMP_SSH_KEY_DIR/id_ed25519
+    cp $TMP_SSH_KEY_DIR/$DEFAULT_KEY_ED25519.pub $TMP_SSH_KEY_DIR/id_ed25519.pub
   end
 
   _keyme_info "Setting permissions on config..."
