@@ -1,4 +1,4 @@
-function aws-profile --description "Enumerate profiles and log in to one of them via AWS SSO."
+function sso --description "Enumerate profiles and log in to one of them via AWS SSO."
   set -gx AWS_PROFILE (sed -n "s/^\[\(profile \)\{0,1\}\(.*\)\]/\2/gp" ~/.aws/config | fzf)
   if test "$AWS_PROFILE" = "default"
     # If I selected default, set nothing.
