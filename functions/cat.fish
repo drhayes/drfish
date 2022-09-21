@@ -1,3 +1,3 @@
 function cat --description "uses bat instead"
-  bat $argv
+  batcat $argv
 end
