@@ -1,4 +1,4 @@
-function ghclone -a repo thingy --description "Clone a repo from GitHub to ~/src."
+function shclone -a repo thingy --description "Clone a repo from sourcehut to ~/src."
   set -l default_path $repo
   if test -z "$thingy"
     set thingy $default_path
@@ -9,6 +9,7 @@ function ghclone -a repo thingy --description "Clone a repo from GitHub to ~/src
     return
   end
   cd $HOME/src
-  git clone git@github.com:$repo $thingy
+  git clone git@git.sr.ht:~$repo $thingy
   cd $thingy
 end
+
