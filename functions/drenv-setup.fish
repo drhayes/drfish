@@ -68,14 +68,6 @@ function drenv-setup --description "Do all the first time setup stuff to make a 
     mv nvim.appimage ~/bin/nvim
   end
 
-  # ponysay.
-  if not type --quiet ponysay
-    _drenv_progress ponysay
-    _sudo add-apt-repository ppa:vincent-c/ponysay
-    _sudo apt-get update
-    _sudo apt-get install ponysay
-  end
-
   # fzf.
   if not type --quiet fzf
     _drenv_progress fzf
