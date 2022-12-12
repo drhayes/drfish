@@ -1,3 +1,4 @@
+# Requires https://github.com/datfinesoul/aws-sso-roller to have been run first.
 function sso --description "Enumerate profiles and log in to one of them via AWS SSO."
   set -gx AWS_PROFILE (sed -n "s/^\[\(profile \)\{0,1\}\(.*\)\]/\2/gp" ~/.aws/config | fzf)
   if test "$AWS_PROFILE" = "default"
