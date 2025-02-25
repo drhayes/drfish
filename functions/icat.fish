@@ -1,3 +1,3 @@
-function icat --description "Show an image in the kitty terminal."
-  kitty +kitten icat $argv
+function icat --description "Show an image in the wezterm terminal."
+    wezterm imgcat $argv
 end
