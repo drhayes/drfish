@@ -1,3 +1,7 @@
 function cds --description "cd into the ~/src directory."
-  cd ~/src/"$argv"
+  if type -q z
+    z ~/src/"$argv"
+  else
+    cd ~/src/"$argv"
+  end
 end
