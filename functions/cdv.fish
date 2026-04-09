@@ -1,4 +1,8 @@
 function cdv --description "cd into the ~/the-vault directory"
-  cd ~/the-vault/"$argv"
+  if type -q z
+    z ~/the-vault/"$argv"
+  else
+    cd ~/the-vault/"$argv"
+  end
 end
 

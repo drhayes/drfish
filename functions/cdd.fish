@@ -1,3 +1,7 @@
 function cdd --description "cd into the ~/Downloads folder."
-  cd ~/Downloads/"$argv"
+  if type -q z
+    z ~/Downloads/"$argv"
+  else
+    cd ~/Downloads/"$argv"
+  end
 end
